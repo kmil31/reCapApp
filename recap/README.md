@@ -1,4 +1,4 @@
-# recapapp
+# recap
 
 A new Flutter project.
 

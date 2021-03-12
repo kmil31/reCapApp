@@ -1,4 +1,4 @@
-import 'package:recapapp/zakat/zakatmain.dart';
+import 'package:recap/zakat/zakatmain.dart';
 import 'package:flutter/material.dart';
 
 void main() {
