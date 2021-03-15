@@ -1,4 +1,4 @@
-import 'package:recap/zakat/zakatmain.dart';
+import 'package:recap/screens/login/login.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(primaryColor: Colors.blue),
         initialRoute: '/',
         routes: {
-          '/': (context) => Zakat(),
+          '/': (context) => Login(),
         });
   }
 }
