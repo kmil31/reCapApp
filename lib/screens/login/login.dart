@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recap/services/authservice.dart';
 import 'package:recap/widget/google_signinButton.dart';
+
 
 class Login extends StatefulWidget {
   @override
@@ -27,19 +27,19 @@ class _LoginState extends State<Login> {
               ),
               SizedBox(height: 20),
               Text(
-                'WELCOME TO RECAP ',
+                'ReCAP APP',
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 30,
                   fontWeight: FontWeight.w600,
+                  fontFamily: 'Roboto Slab',
                 ),
               ),
               SizedBox(height: 150),
               SizedBox(
-                height: 45,
-                width: 317,
+                height: 55,
+                width: 300,
                 child: GoogleSignupButtonWidget(),
               ),
-              SizedBox(height: 150),
             ],
           ),
         ),

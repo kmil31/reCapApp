@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:recap/screens/about/about.dart';
+
+import 'package:animations/animations.dart';
 import 'package:recap/screens/home/home.dart';
-import 'package:recap/screens/login/login.dart';
 import 'package:recap/screens/zakat/zakatmain.dart';
 import 'package:recap/services/authservice.dart';
+import 'package:recap/services/userdetails.dart';
 
 // this class is our navigation. routes should be defined here
 
@@ -14,31 +15,7 @@ class DrawerMenu extends StatefulWidget {
 }
 
 class _DrawerMenuState extends State<DrawerMenu> {
-  String name = "";
-
-  Route _routeToLogin() {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => Login(),
-    );
-  }
-
-  Route _routeToZakat() {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => Zakat(),
-    );
-  }
-
-  Route _routeToHome() {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => HomePage(),
-    );
-  }
-
-  Route _routeToAbout() {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => About(),
-    );
-  }
+  UserDetails userDetails = UserDetails();
 
   @override
   Widget build(BuildContext context) {
@@ -46,23 +23,39 @@ class _DrawerMenuState extends State<DrawerMenu> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.white,
+          UserAccountsDrawerHeader(
+            accountName: Text(
+              userDetails.getUsername(),
+              style: TextStyle(
+                fontSize: 22,
+                color: Colors.black,
+              ),
             ),
-            child: Text(
-              name,
+            accountEmail: Text(
+              userDetails.getEmail(),
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 24,
               ),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.amber,
+            ),
+            currentAccountPicture: CircleAvatar(
+              backgroundImage: NetworkImage(userDetails.getDisplayUrl()),
             ),
           ),
           ListTile(
             leading: Icon(Icons.home),
             title: Text('Home'),
             onTap: () async {
-              Navigator.of(context).push(_routeToHome());
+              Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (c, a1, a2) => HomePage(),
+                    transitionsBuilder: (c, anim, a2, child) =>
+                        FadeTransition(opacity: anim, child: child),
+                    transitionDuration: Duration(milliseconds: 250),
+                  ));
             },
           ),
           ListTile(
@@ -77,17 +70,27 @@ class _DrawerMenuState extends State<DrawerMenu> {
             leading: Icon(Icons.money),
             title: Text('Zakat'),
             onTap: () async {
-              Navigator.of(context).push(_routeToZakat());
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (c, a1, a2) => Zakat(),
+                  transitionsBuilder: (c, anim, a2, child) =>
+                      FadeTransition(opacity: anim, child: child),
+                  transitionDuration: Duration(milliseconds: 250),
+                ),
+              );
             },
           ),
           ListTile(
               leading: Icon(Icons.logout),
               title: Text('Sign Out'),
               onTap: () async {
-                AuthService().signOut();
+                await AuthService().signOut();
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/wrapper', (route) => false);
               }),
           ListTile(
-              leading: Icon(Icons.logout),
+              leading: Icon(Icons.south),
               title: Text('About'),
               onTap: () async {}),
         ],

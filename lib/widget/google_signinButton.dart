@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:provider/provider.dart';
-import 'package:recap/provider/google_signin.dart';
+import 'package:recap/services/authservice.dart';
 
 class GoogleSignupButtonWidget extends StatelessWidget {
+  AuthService butt = new AuthService();
   @override
   Widget build(BuildContext context) => Container(
         padding: EdgeInsets.all(4),
@@ -19,10 +19,14 @@ class GoogleSignupButtonWidget extends StatelessWidget {
           borderSide: BorderSide(color: Colors.black),
           textColor: Colors.black,
           icon: FaIcon(FontAwesomeIcons.google, color: Colors.red),
-          onPressed: () {
-            final provider =
-                Provider.of<GoogleSignInProvider>(context, listen: false);
-            provider.login();
+          onPressed: () async {
+            dynamic result = butt.signInWithGoogle(context: context);
+
+            if (result == null) {
+              print("Button Null");
+            } else {
+              print(result);
+            }
           },
         ),
       );
