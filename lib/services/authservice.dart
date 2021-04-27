@@ -8,7 +8,6 @@ final AuthService authService = AuthService();
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  
 
   Stream<User?> get user {
     return _auth.authStateChanges();

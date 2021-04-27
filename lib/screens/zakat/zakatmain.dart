@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:recap/screens/zakat/zakatfitr.dart';
+import 'package:recap/screens/zakat/incomezakat.dart';
+import 'package:recap/screens/zakat/nisab.dart';
 import 'package:recap/sharedwidgets/drawer.dart';
 
 class Zakat extends StatefulWidget {
@@ -10,12 +13,14 @@ class ZakatState extends State<Zakat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //drawer: Drawer(),
       appBar: AppBar(
         titleSpacing: 5.0,
         elevation: 5.0,
         backgroundColor: Color(0xff201F23),
         title: Text('Zakat'),
       ),
+      drawer: DrawerMenu(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -53,7 +58,10 @@ class ZakatState extends State<Zakat> {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(5.0)))),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/second');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ZakatFitr()),
+                      );
                     })),
             Container(
                 margin: EdgeInsets.all(20),
@@ -68,7 +76,10 @@ class ZakatState extends State<Zakat> {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(5.0)))),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/second');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => IncomeZakat()),
+                      );
                     })),
             Container(
                 margin: EdgeInsets.all(20),
@@ -83,12 +94,14 @@ class ZakatState extends State<Zakat> {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10)))),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/second');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Nisab()),
+                      );
                     })),
           ],
         ),
       ),
-      drawer: DrawerMenu(),
     );
   }
 }
