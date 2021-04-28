@@ -10,8 +10,6 @@ class _NisabFormState extends State<NisabForm> {
   var _gold;
   var _silver;
   //double _cash;
-  
-  
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +21,10 @@ class _NisabFormState extends State<NisabForm> {
             width: 380,
             child: TextFormField(
               decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(
+                    const Radius.circular(15.0),
+                  )),
                   labelText: 'How much gold do you own? (g) '),
               validator: (value) {
                 if (value!.isEmpty) {
@@ -38,7 +39,10 @@ class _NisabFormState extends State<NisabForm> {
               width: 380,
               child: TextFormField(
                 decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(
+                      const Radius.circular(15.0),
+                    )),
                     labelText: 'How much silver do you own? (g) '),
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -52,7 +56,10 @@ class _NisabFormState extends State<NisabForm> {
               width: 380,
               child: TextFormField(
                 decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(
+                      const Radius.circular(15.0),
+                    )),
                     labelText: 'How much cash do you own?'),
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -63,7 +70,12 @@ class _NisabFormState extends State<NisabForm> {
               )),
           Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: ElevatedButton(
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  primary: Colors.black,
+                  minimumSize: Size(88, 46),
+                  side: BorderSide(width: 1, color: Colors.black),
+                ),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     // Process data.
