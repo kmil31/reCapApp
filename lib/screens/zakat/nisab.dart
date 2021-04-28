@@ -12,10 +12,16 @@ class NisabState extends State<Nisab> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          titleSpacing: 5.0,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Text(
+            "Gold & Silver Zakat",
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+          titleSpacing: 3.0,
           elevation: 5.0,
-          backgroundColor: Color(0xff201F23),
-          title: Text('Nisab'),
+          backgroundColor: Colors.white,
         ),
         drawer: DrawerMenu(),
         body: Center(
@@ -31,15 +37,18 @@ class NisabState extends State<Nisab> {
                     color: Colors.black)),
           ),
           Container(
-            color: Colors.green[100],
-            margin: EdgeInsets.all(10),
+            margin: EdgeInsets.all(20),
             alignment: Alignment.center,
             width: double.infinity,
-            //height: 100,
+            height: 100,
+            decoration: BoxDecoration(
+              color: Colors.green[50],
+              borderRadius: BorderRadius.circular(24.0),
+            ),
             padding: EdgeInsets.symmetric(vertical: 13),
             child: Text(
                 'Income zakat is all types of wages, remuneration, payments earned from work or efforts undertaken either on a regular basis or once in a while.',
-                style: TextStyle(fontSize: 15, color: Colors.black)),
+                style: TextStyle(fontSize: 16, color: Colors.black)),
           ),
           Container(
             margin: EdgeInsets.all(8),
@@ -50,7 +59,7 @@ class NisabState extends State<Nisab> {
 
             Today's Silver Price
                     1 tola = MYR 42
-                ''', style: TextStyle(fontSize: 15, color: Colors.black)),
+                ''', style: TextStyle(fontSize: 16, color: Colors.black)),
           ),
           Container(child: NisabForm()),
         ])));
