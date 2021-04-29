@@ -40,15 +40,19 @@ class NisabState extends State<Nisab> {
             margin: EdgeInsets.all(20),
             alignment: Alignment.center,
             width: double.infinity,
-            height: 100,
+            height: 270,
             decoration: BoxDecoration(
               color: Colors.green[50],
               borderRadius: BorderRadius.circular(24.0),
             ),
             padding: EdgeInsets.symmetric(vertical: 13),
             child: Text(
-                'Income zakat is all types of wages, remuneration, payments earned from work or efforts undertaken either on a regular basis or once in a while.',
-                style: TextStyle(fontSize: 16, color: Colors.black)),
+                '''Muslims who own wealth at or above a firm threshold to donate a portion of that wealth, around 2.5% to those who are eligible to pay. To be eligible, you must have around either:
+              7.5 tola in gold. ( in physical form)
+              52.5 tola in silver.\nPosessions/assets equal to or great than 52.5 tola in silver.                                   
+              \n              1 tola = 11.664grams''',
+                style: TextStyle(fontSize: 17, color: Colors.black),
+                textAlign: TextAlign.left),
           ),
           Container(
             margin: EdgeInsets.all(8),

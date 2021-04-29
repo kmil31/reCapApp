@@ -2,29 +2,52 @@ import 'package:flutter/material.dart';
 
 //form widget
 class ZakatFitrForm extends StatefulWidget {
-  //ZakatFitrForm({Key key, this.title}) : super(key: key);
   @override
   _ZakatFitrFormState createState() => _ZakatFitrFormState();
 }
 
 class _ZakatFitrFormState extends State<ZakatFitrForm> {
   final _formKey = GlobalKey<FormState>();
-  double _zakat = 0.0;
+  late double _zakat;
   double _rate = 7.0;
 
-  void _setZakat() {
+  double setZakat(String value) {
     setState(() {
-      _zakat = _zakat * _rate;
+      _zakat = double.tryParse(value) ?? 0.0;
     });
+    return _zakat;
   }
 
-  dynamic _getZakat() {
-    return _zakat;
+  void _calculateZakat(double _zakat) {
+    _zakat = _zakat * _rate;
+    _showDialog(_zakat);
+  }
+
+  void _showDialog(double _zakat) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text("You need to pay: RM $_zakat",
+              textAlign: TextAlign.center),
+          actions: <Widget>[
+            // ignore: deprecated_member_use
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: _formKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -40,6 +63,9 @@ class _ZakatFitrFormState extends State<ZakatFitrForm> {
                 }
                 return null;
               },
+              onChanged: (value) {
+                setZakat(value);
+              },
             ),
           ),
           Container(
@@ -51,12 +77,12 @@ class _ZakatFitrFormState extends State<ZakatFitrForm> {
               ),
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  //display();
+                  _calculateZakat(_zakat);
                 }
               },
               child: Text('Submit'),
             ),
-          )
+          ),
         ],
       ),
     );

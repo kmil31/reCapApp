@@ -24,7 +24,7 @@ class ZakatFitrState extends State<ZakatFitr> {
         backgroundColor: Colors.white,
       ),
       drawer: DrawerMenu(),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
