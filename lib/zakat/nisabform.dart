@@ -40,8 +40,7 @@ class _NisabFormState extends State<NisabForm> {
     });
 
     if (_total > _cash || _total == _cash) {
-      _showDialog(
-          '''You are eligible to pay nisab.
+      _showDialog('''You are eligible to pay nisab.
       The amount you need to pay is: RM $_totalassets''');
     } else
       _showDialog('You do not have to pay nisab.');
@@ -139,11 +138,10 @@ class _NisabFormState extends State<NisabForm> {
               )),
           Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  primary: Colors.black,
-                  minimumSize: Size(88, 46),
-                  side: BorderSide(width: 1, color: Colors.black),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.green),
                 ),
                 onPressed: () {
                   if (_formKey.currentState.validate()) {

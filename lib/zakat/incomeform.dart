@@ -96,14 +96,17 @@ class _IncomeFormState extends State<IncomeForm> {
           _suppport;
       _total = _totalIncome - _totalDeduction;
 
-      _showDialog('''The final amount of 
-      Income Zakat: \n''' +
-          "\nTotal Income: RM " +
-          _totalIncome.toStringAsFixed(2) +
-          "\n\nTotal Deduction: RM " +
-          _totalDeduction.toStringAsFixed(2) +
-          "\n\nTotal Income Zakat: RM " +
-          _total.toStringAsFixed(2));
+      if (_totalIncome <= _totalDeduction) {
+        _showDialog("You do not have to pay income zakat.");
+      } else {
+        _showDialog('''The final amount of Income Zakat: \n''' +
+            "\nTotal Income: RM " +
+            _totalIncome.toStringAsFixed(2) +
+            "\n\nTotal Deduction: RM " +
+            _totalDeduction.toStringAsFixed(2) +
+            "\n\nTotal Income Zakat: RM " +
+            _total.toStringAsFixed(2));
+      }
     });
   }
 
@@ -113,11 +116,12 @@ class _IncomeFormState extends State<IncomeForm> {
         builder: (BuildContext context) {
           return AlertDialog(
               title: new Text("Income Zakat\n",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                   textAlign: TextAlign.center),
               content: new Text(status,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center),
+                  style: TextStyle(fontSize: 16), textAlign: TextAlign.left),
               actions: <Widget>[
                 // ignore: deprecated_member_use
                 new FlatButton(
@@ -420,18 +424,17 @@ class _IncomeFormState extends State<IncomeForm> {
                   ])),
           Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  primary: Colors.black,
-                  minimumSize: Size(88, 46),
-                  side: BorderSide(width: 1, color: Colors.black),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.green),
                 ),
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
                     _calcTotal();
                   }
                 },
-                child: const Text('Calculate'),
+                child: const Text('Submit'),
               )),
         ],
       ),

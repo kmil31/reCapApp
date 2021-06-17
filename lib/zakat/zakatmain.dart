@@ -34,7 +34,7 @@ class ZakatState extends State<Zakat> {
           children: <Widget>[
             Container(
               alignment: Alignment.topLeft,
-              margin: EdgeInsets.all(20),
+              margin: EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 0),
               child: Text('What is Zakat?',
                   style: TextStyle(
                       fontSize: 20,
@@ -42,28 +42,34 @@ class ZakatState extends State<Zakat> {
                       color: Colors.black)),
             ),
             Container(
-              margin: EdgeInsets.all(20),
+              margin: EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 0),
               alignment: Alignment.center,
               width: double.infinity,
               height: 200,
               decoration: BoxDecoration(
-                color: Colors.green[50],
-                borderRadius: BorderRadius.circular(24.0),
-              ),
+                  color: Colors.green[50],
+                  borderRadius: BorderRadius.circular(24.0),
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 10.0,
+                      offset: new Offset(0.0, 10.0),
+                    ),
+                  ]),
               padding: EdgeInsets.symmetric(vertical: 10),
               child: Text(
                   'Zakat (or Zakah) is the giving of a set amount of your wealth to charity. Zakat is the third pillar out of five pillars of Islam. Zakat is extremely important to Muslim and it is mentioned alongside of Salah in the Quran. \n\n"Establish Prayer and pay Zakah and obey the Messenger so that mercy may be shown to you." (An-Nur: 56)',
                   style: TextStyle(fontSize: 16, color: Colors.black)),
             ),
             Container(
-              margin: EdgeInsets.all(20),
+              margin: EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 0),
               width: double.infinity,
               height: 80,
               child: ElevatedButton(
                 child: Text('Zakat al-Fitr',
                     style: TextStyle(fontSize: 18, color: Colors.black)),
                 style: ElevatedButton.styleFrom(
-                    primary: Colors.grey[200],
+                    primary: Colors.teal[50],
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(24.0)))),
                 onPressed: () {
@@ -75,14 +81,14 @@ class ZakatState extends State<Zakat> {
               ),
             ),
             Container(
-              margin: EdgeInsets.all(20),
+              margin: EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 0),
               width: double.infinity,
               height: 80,
               child: ElevatedButton(
                 child: Text('Income Zakat',
                     style: TextStyle(fontSize: 18, color: Colors.black)),
                 style: ElevatedButton.styleFrom(
-                    primary: Colors.grey[200],
+                    primary: Colors.teal[50],
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(24.0)))),
                 onPressed: () {
@@ -101,7 +107,7 @@ class ZakatState extends State<Zakat> {
                 child: Text('Gold & Silver Zakat',
                     style: TextStyle(fontSize: 18, color: Colors.black)),
                 style: ElevatedButton.styleFrom(
-                    primary: Colors.grey[200],
+                    primary: Colors.teal[50],
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(24.0)))),
                 onPressed: () {

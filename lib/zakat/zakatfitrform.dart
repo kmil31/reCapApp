@@ -69,11 +69,9 @@ class _ZakatFitrFormState extends State<ZakatFitrForm> {
             ),
           ),
           Container(
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                primary: Colors.black,
-                minimumSize: Size(88, 46),
-                side: BorderSide(width: 1, color: Colors.black),
+            child: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
               ),
               onPressed: () {
                 if (_formKey.currentState.validate()) {
