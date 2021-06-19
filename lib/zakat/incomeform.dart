@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class IncomeForm extends StatefulWidget {
   @override
@@ -21,6 +22,7 @@ class _IncomeFormState extends State<IncomeForm> {
   var _totalIncome;
   var _totalDeduction;
   var _total;
+  var _finalTotal;
 
   void _setGrossIncome(String grossIncome) {
     setState(() {
@@ -95,8 +97,9 @@ class _IncomeFormState extends State<IncomeForm> {
           _specialneeds +
           _suppport;
       _total = _totalIncome - _totalDeduction;
+      _finalTotal = 0.025 * _total;
 
-      if (_totalIncome <= _totalDeduction) {
+      if (_total <= (7.5 * 2802)) {
         _showDialog("You do not have to pay income zakat.");
       } else {
         _showDialog('''The final amount of Income Zakat: \n''' +
@@ -104,9 +107,26 @@ class _IncomeFormState extends State<IncomeForm> {
             _totalIncome.toStringAsFixed(2) +
             "\n\nTotal Deduction: RM " +
             _totalDeduction.toStringAsFixed(2) +
+            "\n\n\nZakat you have to pay: " +
             "\n\nTotal Income Zakat: RM " +
-            _total.toStringAsFixed(2));
+            _finalTotal.toStringAsFixed(2));
       }
+      setState(() {
+        _grossIncome = 0;
+        _sideIncome = 0;
+        _otherIncome = 0;
+        _wives = 0;
+        _childabove18 = 0;
+        _childunder18 = 0;
+        _childunder5 = 0;
+        _specialneeds = 0;
+        _suppport = 0;
+        _totalIncome = 0;
+        _totalDeduction = 0;
+        _total = 0;
+        _personal = 11300.00;
+        _epf = 0.11;
+      });
     });
   }
 
@@ -153,12 +173,14 @@ class _IncomeFormState extends State<IncomeForm> {
           Container(
             margin: EdgeInsets.symmetric(horizontal: 20),
             child: TextFormField(
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               decoration: const InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(
                     const Radius.circular(15.0),
                   )),
                   labelText: 'Annual Gross Income (RM)'),
+              keyboardType: TextInputType.number,
               validator: (value) {
                 if (value.isEmpty) {
                   return 'Please enter a value';
@@ -174,12 +196,14 @@ class _IncomeFormState extends State<IncomeForm> {
           Container(
             margin: EdgeInsets.symmetric(horizontal: 20),
             child: TextFormField(
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               decoration: const InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(
                     const Radius.circular(15.0),
                   )),
                   labelText: 'Freelance/ Side Income (RM)'),
+              keyboardType: TextInputType.number,
               validator: (value) {
                 if (value.isEmpty) {
                   return 'Please enter a value';
@@ -195,12 +219,14 @@ class _IncomeFormState extends State<IncomeForm> {
           Container(
             margin: EdgeInsets.symmetric(horizontal: 20),
             child: TextFormField(
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               decoration: const InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(
                     const Radius.circular(15.0),
                   )),
                   labelText: 'Other Income (MYR)'),
+              keyboardType: TextInputType.number,
               validator: (value) {
                 if (value.isEmpty) {
                   return 'Please enter a value';
@@ -224,7 +250,7 @@ class _IncomeFormState extends State<IncomeForm> {
           Container(
             alignment: Alignment.topLeft,
             margin: EdgeInsets.symmetric(horizontal: 23),
-            child: Text('Personal Expenses             RM 11,300.00',
+            child: Text('Personal Expenses                RM 11,300.00',
                 style: TextStyle(fontSize: 15, color: Colors.black)),
           ),
           Padding(padding: EdgeInsets.only(top: 25.0)),
@@ -246,12 +272,16 @@ class _IncomeFormState extends State<IncomeForm> {
                     Spacer(),
                     new Flexible(
                         child: TextFormField(
+                            inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: const BorderRadius.all(
                                   const Radius.circular(15.0),
                                 )),
                                 labelText: 'person'),
+                            keyboardType: TextInputType.number,
                             validator: (value) {
                               if (value.isEmpty) {
                                 return 'Please enter a value';
@@ -278,12 +308,16 @@ class _IncomeFormState extends State<IncomeForm> {
                     SizedBox(width: 45),
                     Flexible(
                         child: TextFormField(
+                            inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: const BorderRadius.all(
                                   const Radius.circular(15.0),
                                 )),
                                 labelText: 'person'),
+                            keyboardType: TextInputType.number,
                             validator: (value) {
                               if (value.isEmpty) {
                                 return 'Please enter a value';
@@ -310,12 +344,16 @@ class _IncomeFormState extends State<IncomeForm> {
                     SizedBox(width: 45),
                     Flexible(
                         child: TextFormField(
+                            inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: const BorderRadius.all(
                                   const Radius.circular(15.0),
                                 )),
                                 labelText: 'person'),
+                            keyboardType: TextInputType.number,
                             validator: (value) {
                               if (value.isEmpty) {
                                 return 'Please enter a value';
@@ -342,12 +380,16 @@ class _IncomeFormState extends State<IncomeForm> {
                     SizedBox(width: 45),
                     Flexible(
                         child: TextFormField(
+                            inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: const BorderRadius.all(
                                   const Radius.circular(15.0),
                                 )),
                                 labelText: 'person'),
+                            keyboardType: TextInputType.number,
                             validator: (value) {
                               if (value.isEmpty) {
                                 return 'Please enter a value';
@@ -374,12 +416,16 @@ class _IncomeFormState extends State<IncomeForm> {
                     SizedBox(width: 45),
                     Flexible(
                         child: TextFormField(
+                            inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: const BorderRadius.all(
                                   const Radius.circular(15.0),
                                 )),
                                 labelText: 'person'),
+                            keyboardType: TextInputType.number,
                             validator: (value) {
                               if (value.isEmpty) {
                                 return 'Please enter a value';
@@ -406,12 +452,16 @@ class _IncomeFormState extends State<IncomeForm> {
                     SizedBox(width: 45),
                     Flexible(
                         child: TextFormField(
+                            inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: const BorderRadius.all(
                                   const Radius.circular(15.0),
                                 )),
                                 labelText: 'person'),
+                            keyboardType: TextInputType.number,
                             validator: (value) {
                               if (value.isEmpty) {
                                 return 'Please enter a value';
@@ -432,6 +482,7 @@ class _IncomeFormState extends State<IncomeForm> {
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
                     _calcTotal();
+                    _formKey.currentState.reset();
                   }
                 },
                 child: const Text('Submit'),

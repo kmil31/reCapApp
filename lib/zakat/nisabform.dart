@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class NisabForm extends StatefulWidget {
   @override
@@ -7,43 +8,41 @@ class NisabForm extends StatefulWidget {
 
 class _NisabFormState extends State<NisabForm> {
   final _formKey = GlobalKey<FormState>();
-  var _gold;
-  var _silver;
-  var _totalassets;
-  var _total;
-  var _cash;
+  var _gold = 0.0;
+  var _silver = 0.0;
+  var _asset;
 
   void _setGold(String gold) {
     setState(() {
-      _gold = double.tryParse(gold) ?? 0.0;
+      _gold = double.tryParse(gold) ?? 0;
+      _gold = _gold * 0.085763293310463; // convert to tola
     });
   }
 
   void _setSilver(String silver) {
     setState(() {
-      _silver = double.tryParse(silver) ?? 0.0;
+      _silver = double.tryParse(silver) ?? 0;
+      _silver = _silver * 0.085763293310463; //convert to tola
     });
   }
 
   void _setCash(String cash) {
     setState(() {
-      _cash = double.tryParse(cash) ?? 0.0;
+      _asset = double.tryParse(cash) ?? 0.0;
     });
   }
 
   void _calcNisab() {
-    setState(() {
-      _totalassets = _cash * 0.025; //2.5% of user's assets
-      _gold = _gold * 2802; // 1 tola gold = RM2802
-      _silver = _silver * 42; //1 tola silver = RM42
-      _total = _gold + _silver;
-    });
-
-    if (_total > _cash || _total == _cash) {
-      _showDialog('''You are eligible to pay nisab.
-      The amount you need to pay is: RM $_totalassets''');
+    if (_gold >= 7.5 || _silver >= 52.5 || _asset >= (7.5 * 2802)) {
+      _showDialog("You are eligible to pay zakat.");
     } else
-      _showDialog('You do not have to pay nisab.');
+      _showDialog('You do not have to pay zakat.');
+
+    setState(() {
+      _gold = 0.0;
+      _silver = 0.0;
+      _asset = 0.0;
+    });
   }
 
   void _showDialog(String status) {
@@ -56,13 +55,14 @@ class _NisabFormState extends State<NisabForm> {
                   textAlign: TextAlign.center),
               content: new Text(status,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center),
+                  textAlign: TextAlign.left),
               actions: <Widget>[
                 // ignore: deprecated_member_use
                 new FlatButton(
                   child: new Text("Close"),
                   onPressed: () {
                     Navigator.of(context).pop();
+                    _formKey.currentState.reset();
                   },
                 )
               ]);
@@ -79,12 +79,14 @@ class _NisabFormState extends State<NisabForm> {
           Container(
             width: 380,
             child: TextFormField(
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               decoration: const InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(
                     const Radius.circular(15.0),
                   )),
                   labelText: 'How much gold do you own? (g) '),
+              keyboardType: TextInputType.number,
               validator: (value) {
                 if (value.isEmpty) {
                   return 'Please enter a value';
@@ -100,12 +102,14 @@ class _NisabFormState extends State<NisabForm> {
           Container(
               width: 380,
               child: TextFormField(
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: const BorderRadius.all(
                       const Radius.circular(15.0),
                     )),
                     labelText: 'How much silver do you own? (g) '),
+                keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Please enter a value';
@@ -120,12 +124,14 @@ class _NisabFormState extends State<NisabForm> {
           Container(
               width: 380,
               child: TextFormField(
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: const BorderRadius.all(
                       const Radius.circular(15.0),
                     )),
                     labelText: 'How much cash do you own?'),
+                keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Please enter a value';
